@@ -1,0 +1,16 @@
+#!/bin/bash
+# Update and install required packages
+pkg update && pkg upgrade -y
+pkg install proot-distro -y
+
+# Install Ubuntu
+proot-distro install ubuntu
+
+# Set up XRDP and XFCE
+proot-distro login ubuntu <<EOF
+apt update && apt upgrade -y
+apt install xfce4 xfce4-goodies xrdp -y
+service xrdp start
+EOF
+
+echo "RDP environment is ready. Use xfreerdp to connect."
